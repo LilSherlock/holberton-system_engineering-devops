@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-#Today is gonna be day 
+#Today is gonna be day
 
 kill $(pgrep -f 4-to_infinity_and_beyond)
