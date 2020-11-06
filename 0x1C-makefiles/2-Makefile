@@ -1,8 +1,0 @@
-# useful makefile script
-CC= gcc
-SRC= main.c holberton.c
-OBJ= $(SRC:.c=.o)
-NAME= holberton
-all: $(OBJ)
-	@echo $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
