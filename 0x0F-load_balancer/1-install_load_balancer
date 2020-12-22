@@ -12,4 +12,5 @@ backend server_backend
         balance roundrobin
         server 1627-web-02 34.73.2.194
         server 1627-web-01 35.243.146.56
-"
+" | sudo tee -a /etc/haproxy/haproxy.cfg
+sudo service haproxy restart
