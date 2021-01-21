@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ "$1" == "start" ]; then
+    echo Gay
+elif [ "$1" == "gay" ]; then
+    echo Mauri es gay
+else
+    echo Papi meta algo
+fi
