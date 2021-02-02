@@ -1,26 +1,31 @@
+
 #!/usr/bin/python3
 """For a given employee ID, returns information about
 their TODO list progress"""
-import sys
+
 import requests
+import sys
 
+if __name__ == "__main__":
 
-if __name__ == '__main__':
+    userId = sys.argv[1]
+    user = requests.get("https://jsonplaceholder.typicode.com/users/{}"
+                        .format(userId))
 
-    user = requests.get(
-        'https://jsonplaceholder.typicode.com/users/{}'.format(sys.argv[1]))
-    user = user.json()
-    todo = requests.get('https://jsonplaceholder.typicode.com/todos')
-    todo = todo.json()
+    name = user.json().get('name')
 
-    id_arg = int(sys.argv[1])
-    tasks = 0
+    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
+    totalTasks = 0
+    completed = 0
 
-    for x in todo:
-        if x['userId'] == id_arg and x['completed']:
-            tasks += 1
+    for task in todos.json():
+        if task.get('userId') == int(userId):
+            totalTasks += 1
+            if task.get('completed'):
+                completed += 1
 
-    print("Employee {} is done with tasks({}/20):".format(user.get("name"), tasks))
-    for x in todo:
-        if x['userId'] == id_arg and x['completed']:
-            print("\t {}".format(x['title']))
+    print('Employee {} is done with tasks({}/{}):'
+          .format(name, completed, totalTasks))
+
+    print('\n'.join(["\t " + task.get('title') for task in todos.json()
+          if task.get('userId') == int(userId) and task.get('completed')]))
