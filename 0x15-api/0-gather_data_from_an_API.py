@@ -1,30 +1,32 @@
+
 #!/usr/bin/python3
-"""For a given employee ID, returns information about
-their TODO list progress"""
-
+"""
+Pings a To-Do API for data and displays tasks completed
+and tasks done for a specified user
+"""
 import requests
-import sys
+from sys import argv
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    employee_id = argv[1]
+    url_todo = 'https://jsonplaceholder.typicode.com/todos/'
+    url_user = 'https://jsonplaceholder.typicode.com/users/'
+    todo = requests.get(url_todo, params={'userId': employee_id})
+    user = requests.get(url_user, params={'id': employee_id})
 
-    userId = sys.argv[1]
-    user = requests.get("https://jsonplaceholder.typicode.com/users/{}"
-                        .format(userId))
+    todo_dict_list = todo.json()
+    user_dict_list = user.json()
 
-    name = user.json().get('name')
+    done_tasks = []
+    total_tasks = len(todo_dict_list)
+    employee = user_dict_list[0].get('name')
 
-    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
-    totalTasks = 0
-    completed = 0
+    for task in todo_dict_list:
+        if task.get('completed') is True:
+            done_tasks.append(task)
 
-    for task in todos.json():
-        if task.get('userId') == int(userId):
-            totalTasks += 1
-            if task.get('completed'):
-                completed += 1
+    print("Employee {} is done with tasks({}/{}):"
+          .format(employee, len(done_tasks), total_tasks))
 
-    print('Employee {} is done with tasks({}/{}):'
-          .format(name, completed, totalTasks))
-
-    print('\n'.join(["\t " + task.get('title') for task in todos.json()
-                     if task.get('userId') == int(userId) and task.get('completed')]))
+    for task in done_tasks:
+        print("\t {}".format(task.get('title')))
