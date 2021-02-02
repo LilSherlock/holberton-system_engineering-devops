@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """
 Pings a To-Do API for data and displays tasks completed
