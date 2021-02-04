@@ -16,7 +16,7 @@ def top_ten(subreddit):
             'User-agent': 'your bot 0.1'})
 
     if not response:
-        print("none")
+        print("None")
     else:
         while (x < 10):
             print(response.json().get('data').get(
