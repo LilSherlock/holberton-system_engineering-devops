@@ -13,7 +13,7 @@ def recurse(subreddit, hot_list=[], after=None):
         headers={'User-agent': 'your bot 0.1'}, params={'after': after})
 
     if not response:
-        print("None")
+        return None
     else:
         response_request = response.json().get('data').get('children')
 
