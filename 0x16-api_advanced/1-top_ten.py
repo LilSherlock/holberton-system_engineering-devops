@@ -11,7 +11,7 @@ def top_ten(subreddit):
     x = 0
 
     response = requests.get(
-        "https://www.reddit.com/r/{}/top.json".format(subreddit),
+        "https://www.reddit.com/r/{}/hot.json".format(subreddit),
         headers={
             'User-agent': 'your bot 0.1'})
 
