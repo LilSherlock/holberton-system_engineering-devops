@@ -12,8 +12,7 @@ def top_ten(subreddit):
 
     response = requests.get(
         "https://www.reddit.com/r/{}/hot.json".format(subreddit),
-        headers={
-            'User-agent': 'your bot 0.1'})
+        headers={'User-agent': 'your bot 0.1'}, params={'after': after})
 
     if not response:
         print("None")
